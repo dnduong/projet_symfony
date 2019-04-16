@@ -3,7 +3,8 @@
 {% block body %}
     <h1>Inscription</h1>
     <a href="{{ path('homepage') }}">Home</a>
-    <a href="{{ path('signup_user') }}">Utilisateur</a>
-	<a href="{{ path('signup_resto') }}">Restaurant</a>
-
+    <a href="{{ path('inscription') }}">Sign up</a>
+    {{ form_start(form) }}
+	{{ form_widget(form) }}
+	{{ form_end(form) }}
 {% endblock %}
