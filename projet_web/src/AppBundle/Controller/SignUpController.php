@@ -14,7 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
-
 class SignUpController extends Controller
 {
 	/**
@@ -42,14 +41,19 @@ class SignUpController extends Controller
     	->add('Numero',TelType::class, ['label'=>'Tél'])
     	->add('Adresse',EmailType::class, ['label'=>'Email'])
     	->add('S\'inscrire', SubmitType::class)
-       	->getForm();
+      ->getForm();
        	$form->handleRequest($request);
-       	if ($form->isSubmitted() && $form->isValid()){
-       		$em = $this->getDoctrine()->getManager();
-       		$em->persist($user);
-       		$em->flush();
-       		return $this->render('home.html.twig');
-       	}
+       	if ($form->isSubmitted()){
+          $repository = $this->getDoctrine()->getRepository('AppBundle:user');
+          $log = $repository->findByLogin($form["Login"]->getData());
+          $noexist_login = ($log==Array());
+          if($form->isValid() && $noexist_login){
+         		$em = $this->getDoctrine()->getManager();
+         		$em->persist($user);
+         		$em->flush();
+         		return $this->redirectToRoute('login');
+          }
+        }
         return $this->render('signup_user.html.twig',array('form' => $form->createView()));
     }
      /**
@@ -72,12 +76,17 @@ class SignUpController extends Controller
     	->add('S\'inscrire', SubmitType::class)
        	->getForm();
        	$form->handleRequest($request);
-       	if ($form->isSubmitted() && $form->isValid()){
-       		$em = $this->getDoctrine()->getManager();
-       		$em->persist($user);
-       		$em->flush();
-       		return $this->render('home.html.twig');
-       	}
+       if ($form->isSubmitted()){
+          $repository = $this->getDoctrine()->getRepository('AppBundle:user');
+          $log = $repository->findByLogin($form["Login"]->getData());
+          $noexist_login = ($log==Array());
+          if($form->isValid() && $noexist_login){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute('login');
+          }
+        }
         return $this->render('signup_user.html.twig',array('form' => $form->createView()));
     }
 }

@@ -1,9 +1,10 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
 security:
-
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    encoders:
+        AppBundle\Entity\user: bcrypt
     providers:
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
         in_memory:
             memory: ~
 
@@ -22,3 +23,10 @@ security:
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
+            logout:
+                path: /logout
+                target: /
+            guard:
+                authenticators:
+                    - form_authenticator
+
