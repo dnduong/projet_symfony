@@ -1,0 +1,58 @@
+.jumbotron {
+    background-color: SlateGrey;
+    color: white;
+    padding: 100px 25px;
+}
+
+.bg-grey {
+    background-color: Gainsboro;
+}
+
+body > .container-fluid {
+    padding: 30px 50px;
+}
+
+.logo {
+    font-size: 200px;
+    color: SlateGrey;
+}
+
+.logo-small {
+    font-size: 50px;
+    color: LightSlateGrey;
+}
+
+/* sur petits écrans, la colonne passe dessous et il vaut mieux centrer le contenu */
+@media screen and (max-width: 768px) {
+    .center-logo {
+        text-align: center;
+        margin: 25px 0;
+    }
+}
+
+.cadre {
+    border: solid 1px grey;
+    padding: 20px 20px;
+    border-radius: 20px;
+}
+
+.bleu {
+    background-color: AliceBlue;
+}
+
+.vert {
+    background-color: HoneyDew;
+}
+
+h2 {
+    margin-bottom: 30px;
+}
+
+.hauteur-fixe {
+    height: 300px;
+}
+
+.navbar {
+    padding:0px;
+    margin:0px;
+}

@@ -33,13 +33,13 @@ class SignUpController extends Controller
     	->add('Login',TextType::class)
     	->add('Mdp', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => 'Confirm Password'],
+                'first_options' => ['label' => 'Mot de passe '],
+                'second_options' => ['label' => 'Confirmer le mot de passe '],
         ])
     	->add('Nom',TextType::class)
-    	->add('Prenom',TextType::class)
-    	->add('Numero',TelType::class, ['label'=>'Tél'])
-    	->add('Adresse',EmailType::class, ['label'=>'Email'])
+    	->add('Prenom',TextType::class, ['label'=>'Prénom '])
+    	->add('Numero',TelType::class, ['label'=>'Tél '])
+    	->add('Adresse',EmailType::class, ['label'=>'Email '])
     	->add('S\'inscrire', SubmitType::class)
       ->getForm();
        	$form->handleRequest($request);
@@ -67,12 +67,12 @@ class SignUpController extends Controller
     	->add('Login',TextType::class)
     	->add('Mdp', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => 'Confirm Password'],
+                'first_options' => ['label' => 'Mot de passe '],
+                'second_options' => ['label' => 'Confirmer le mot de passe '],
         ])
-    	->add('Nom',TextType::class, ['label'=>'Nom du restaurat'])
-    	->add('Numero',TelType::class, ['label'=>'Tél'])
-    	->add('Adresse',TextType::class, ['label'=>'Adresse du restaurant'])
+    	->add('Nom',TextType::class, ['label'=>'Nom du restaurat '])
+    	->add('Numero',TelType::class, ['label'=>'Tél '])
+    	->add('Adresse',TextType::class, ['label'=>'Adresse du restaurant '])
     	->add('S\'inscrire', SubmitType::class)
        	->getForm();
        	$form->handleRequest($request);

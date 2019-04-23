@@ -3,6 +3,10 @@
 {% block body %}
     <h1>Home</h1>
     <p>C'est la page Home</p>
-    <a href="{{ path('inscription') }}">Sign Up</a>
-    <a href="{{ path('login') }}">Log In</a>
+	<ul>
+			<li> <a href="{{ path('inscription') }}">Sign Up</a> </li><br>
+            <li> <a href="{{ path('login') }}">Log In</a> </li><br>
+            <li> <a href="{{ path('profil') }}">Profil</a> </li>
+    </ul>
+     
 {% endblock %}
