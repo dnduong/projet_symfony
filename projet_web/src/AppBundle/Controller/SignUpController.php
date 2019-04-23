@@ -3,6 +3,10 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\user;
 
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+
 class SignUpController extends Controller
 {
 	/**
@@ -39,7 +44,8 @@ class SignUpController extends Controller
     	->add('Nom',TextType::class)
     	->add('Prenom',TextType::class, ['label'=>'Prénom '])
     	->add('Numero',TelType::class, ['label'=>'Tél '])
-    	->add('Adresse',EmailType::class, ['label'=>'Email '])
+    	->add('Adresse',EmailType::class, ['label'=>'Email '])		->add('avatar', FileType::class)
+		->add('avatar', FileType::class)
     	->add('S\'inscrire', SubmitType::class)
       ->getForm();
        	$form->handleRequest($request);
@@ -48,6 +54,7 @@ class SignUpController extends Controller
           $log = $repository->findByLogin($form["Login"]->getData());
           $noexist_login = ($log==Array());
           if($form->isValid() && $noexist_login){
+				$user->getImage()->upload();
          		$em = $this->getDoctrine()->getManager();
          		$em->persist($user);
          		$em->flush();
@@ -73,7 +80,8 @@ class SignUpController extends Controller
     	->add('Nom',TextType::class, ['label'=>'Nom du restaurat '])
     	->add('Numero',TelType::class, ['label'=>'Tél '])
     	->add('Adresse',TextType::class, ['label'=>'Adresse du restaurant '])
-    	->add('S\'inscrire', SubmitType::class)
+    	->add('avatar', FileType::class)
+		->add('S\'inscrire', SubmitType::class)
        	->getForm();
        	$form->handleRequest($request);
        if ($form->isSubmitted()){
