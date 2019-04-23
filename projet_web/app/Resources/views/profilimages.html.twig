@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title%}Profil{% endblock %}
 {% block stylesheets %}
+  <link rel="stylesheet" type="text/css" href="../bs.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 {% endblock %}
 {% block body %}
@@ -10,8 +11,8 @@
       <nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <ul class="nav navbar-nav">
-            <li class="active"> <a href="{{ path('profil') }}">Accueil</a> </li>
-            <li> <a href="{{ path('images') }}">Images</a> </li>
+			<li> <a href="{{ path('profil') }}">Accueil</a> </li>
+            <li class="active"> <a href="#">Images</a> </li>
             <li> <a href="#">Horaires</a> </li>
             <li> <a href="#">Références</a> </li>
           </ul>
@@ -24,6 +25,21 @@
         </div>
       </nav>
       Lorem ipsum...
+    </div>
+	<div class="container">
+
+      <section class="row">
+
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2"><img src="../resto1.jpg" alt="a"></div>
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2"><img src="../resto2.jpg" alt="a"></div>
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2"><img src="../resto3.jpg" alt="a"></div>
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2"><img src="../resto4.jpg" alt="a"></div>
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2"><img src="../resto5.jpg" alt="a"></div>
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2"><img src="../resto6.jpg" alt="a"></div>
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2"><img src="../resto7.jpg" alt="a"></div>
+
+      </section>
+
     </div>
     <a href="{{ path('homepage') }}">Log Out</a>
 {% endblock %}

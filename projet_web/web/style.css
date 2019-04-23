@@ -1,0 +1,30 @@
+/* <?php header ("Content-type : text/css"); ?> */
+
+body {
+  background-color: DarkGrey;
+  font-family : sans-serif;
+}
+
+h1,h2 {
+  color: white;
+  text-align: center;
+  background-color: LightBlue;
+ border-width:1px;
+ border-style:solid;
+ border-color: DarkBlue;
+}
+
+article h1 {
+  font-style: bold;
+  font-size: 30px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+a:link {color: red;}
+a:visited {color: black;}
+a:hover {font-style : italic;}
