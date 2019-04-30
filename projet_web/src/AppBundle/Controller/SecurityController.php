@@ -15,17 +15,6 @@ class SecurityController extends Controller
    */
   public function loginAction(Request $request)
   {
-    $user = $this->getUser();
-    if ($user instanceof UserInterface) {
-      return $this->redirectToRoute('homepage');
-    }
-
-    /** @var AuthenticationException $exception */
-    $exception = $this->get('security.authentication_utils')
-      ->getLastAuthenticationError();
-
-    return $this->render('login.html.twig', [
-      'error' => $exception ? $exception->getMessage() : NULL,
-    ]);
+    return $this->render('security/login.html.twig');
   }
 }

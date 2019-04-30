@@ -77,16 +77,6 @@ class user
      * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
      */
     private $avatar;
-	
-	/**
-	* @ORM\Column(name="url", type="string", length=255)
-	*/
-  private $url;
-
-	/**
-	* @ORM\Column(name="alt", type="string", length=255)
-	*/
-  private $alt;
 
     /**
      * Get id
@@ -273,7 +263,7 @@ class user
      *
      * @return user
      */
-    public function setAvatar(UploadedFile $avatar=null)
+    public function setAvatar($avatar)
     {
         $this->avatar = $avatar;
 
@@ -289,36 +279,5 @@ class user
     {
         return $this->avatar;
     }
-	
-	public function upload()
-	{
-    // Si jamais il n'y a pas de fichier (champ facultatif), on ne fait rien
-    if (null === $this->avatar) {
-      return;
-    }
-	
-    $name = $this->avatar->getClientOriginalName();
-
-    // On déplace le fichier envoyé dans le répertoire de notre choix
-    $this->avatar->move($this->getUploadRootDir(), $name);
-
-    // On sauvegarde le nom de fichier dans notre attribut $url
-    $this->url = $name;
-
-    // On crée également le futur attribut alt de notre balise <img>
-    $this->alt = $name;
-  }
-
-  public function getUploadDir()
-  {
-    // On retourne le chemin relatif vers l'image pour un navigateur (relatif au répertoire /web donc)
-    return 'uploads/img';
-  }
-
-  protected function getUploadRootDir()
-  {
-    // On retourne le chemin relatif vers l'image pour notre code PHP
-    return __DIR__.'../web/'.$this->getUploadDir();
-  }
 }
 
