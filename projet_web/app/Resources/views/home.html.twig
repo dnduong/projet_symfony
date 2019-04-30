@@ -5,7 +5,11 @@
     <p>C'est la page Home</p>
 	<ul>
 			<li> <a href="{{ path('inscription') }}">Sign Up</a> </li><br>
-            <li> <a href="{{ path('login') }}">Log In</a> </li><br>
+			{% if is_granted('ROLE_USER') %}
+                    <li><a href="{{ path('security_logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ path('security_login') }}">Login</a></li>
+                {% endif %}
             <li> <a href="{{ path('profil') }}">Profil</a> </li>
     </ul>
      

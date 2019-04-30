@@ -4,13 +4,13 @@
     <h1>Authentification</h1>
     <a href="{{ path('homepage') }}">Home</a>
     <a href="{{ path('inscription') }}">Sign up</a>
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
 
-    <form action="{{ path('login') }}" method="POST">
-        <label for="username">Username</label>
-        <input type="text" name="username" class="form-control" id="username" placeholder="Username">
-        <label for="password">Password</label>
-        <input type="password" name="password" class="form-control"
-               id="password" placeholder="Password">
+    {{ form_start(form) }}
+        {{ form_row(form._username) }}
+        {{ form_row(form._password) }}
         <button type="submit">Login</button>
-    </form>
+    {{ form_end(form) }}
 {% endblock %}

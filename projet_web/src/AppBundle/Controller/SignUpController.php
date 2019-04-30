@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\HttpFoundation\File;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SignUpController extends Controller
 {
@@ -35,30 +36,28 @@ class SignUpController extends Controller
     /**
      * @Route("/signup_user", name="signup_user")
      */
-    public function signup_userAction(Request $request)
+    public function signup_userAction(Request $request,UserPasswordEncoderInterface $passwordEncoder)
     {
     	$user = new user();
     	$user->setType('utilisateur');
+      $user->setAdress(NULL);
     	$form = $this->createFormBuilder($user)
-    	->add('Login',TextType::class)
-    	->add('Mdp', RepeatedType::class, [
+      ->add('email',EmailType::class)  
+    	->add('username',TextType::class)
+      ->add('name',TextType::class)
+    	->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Mot de passe '],
                 'second_options' => ['label' => 'Confirmer le mot de passe '],
         ])
-    	->add('Nom',TextType::class)
-    	->add('Prenom',TextType::class, ['label'=>'Prénom '])
-    	->add('Numero',TelType::class, ['label'=>'Tél '])
-    	->add('Adresse',EmailType::class, ['label'=>'Email '])		
       ->add('avatar', FileType::class)
+    	->add('tel',TelType::class, ['label'=>'Tél '])   
     	->add('S\'inscrire', SubmitType::class)
       ->getForm();
        	$form->handleRequest($request);
-       	if ($form->isSubmitted()){
-          $repository = $this->getDoctrine()->getRepository('AppBundle:user');
-          $log = $repository->findByLogin($form["Login"]->getData());
-          $noexist_login = ($log==Array());
-          if($form->isValid() && $noexist_login){                       
+       	if ($form->isSubmitted() && $form->isValid()){ 
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);                     
 				    $file = $user->getAvatar();
             $filename = $this->generateUniqueFileName().'.'.$file->guessExtension();
             try
@@ -74,36 +73,34 @@ class SignUpController extends Controller
             $em->persist($user);
             $em->flush();
          		return $this->redirectToRoute('login');
-          }
         }
         return $this->render('signup_user.html.twig',array('form' => $form->createView()));
     }
      /**
      * @Route("/signup_resto", name="signup_resto")
      */
-    public function signup_restoAction(Request $request)
+    public function signup_restoAction(Request $request,UserPasswordEncoderInterface $passwordEncoder)
     {
     	$user = new user();
     	$user->setType('restaurant');
     	$form = $this->createFormBuilder($user)
-    	->add('Login',TextType::class)
-    	->add('Mdp', RepeatedType::class, [
+      ->add('email',EmailType::class)  
+      ->add('username',TextType::class)
+      ->add('name',TextType::class)
+      ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Mot de passe '],
                 'second_options' => ['label' => 'Confirmer le mot de passe '],
         ])
-    	->add('Nom',TextType::class, ['label'=>'Nom du restaurat '])
-    	->add('Numero',TelType::class, ['label'=>'Tél '])
-    	->add('Adresse',TextType::class, ['label'=>'Adresse du restaurant '])
-    	->add('avatar', FileType::class)
-		->add('S\'inscrire', SubmitType::class)
-       	->getForm();
-       	$form->handleRequest($request);
-       if ($form->isSubmitted()){
-          $repository = $this->getDoctrine()->getRepository('AppBundle:user');
-          $log = $repository->findByLogin($form["Login"]->getData());
-          $noexist_login = ($log==Array());
-          if($form->isValid() && $noexist_login){
+      ->add('avatar', FileType::class)
+      ->add('tel',TelType::class) 
+      ->add('adress',TextType::class)   
+      ->add('S\'inscrire', SubmitType::class)
+      ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);                      
             $file = $user->getAvatar();
             $filename = $this->generateUniqueFileName().'.'.$file->guessExtension();
             try
@@ -119,8 +116,7 @@ class SignUpController extends Controller
             $em->persist($user);
             $em->flush();
             return $this->redirectToRoute('login');
-          }
-        }
+        }    	
         return $this->render('signup_user.html.twig',array('form' => $form->createView()));
     }
 }

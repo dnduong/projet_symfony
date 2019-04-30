@@ -4,14 +4,19 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * user
- *
- * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\userRepository")
- */
-class user
+    /**
+     * user
+     *
+     * @ORM\Table(name="user")
+     * @ORM\Entity(repositoryClass="AppBundle\Repository\userRepository")
+     * @UniqueEntity(fields="email", message="Email already taken")
+     * @UniqueEntity(fields="username", message="Username already taken")
+     */
+class user implements UserInterface, \Serializable
 {
     /**
      * @var int
@@ -23,246 +28,143 @@ class user
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank
+     * @Assert\Email
      */
-    private $nom;
+    private $email;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="prenom", type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
-    private $prenom;
+
+    private $name;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $type;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="numero", type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank
      */
-    private $numero;
+    private $username;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="adresse", type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Length(max=4096)
      */
-    private $adresse;
+    private $plainPassword;
 
     /**
-     * @var string
+     * The below length depends on the "algorithm" you use for encoding
+     * the password, but this works well with bcrypt.
      *
-     * @ORM\Column(name="login", type="string", length=255)
+     * @ORM\Column(type="string", length=64)
      */
-    private $login;
+    private $password;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="mdp", type="string", length=255)
+     * @ORM\Column(type="array")
      */
-    private $mdp;
+    private $roles;
+
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank
      */
     private $avatar;
 
     /**
-     * Get id
-     *
-     * @return int
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
-    public function getId()
+    private $tel;
+
+     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $adress;
+
+    public function __construct()
     {
-        return $this->id;
+        $this->roles = ['ROLE_USER'];
     }
 
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     *
-     * @return user
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
+    // other properties and methods
 
-        return $this;
+    public function getEmail()
+    {
+        return $this->email;
     }
 
-    /**
-     * Get nom
-     *
-     * @return string
-     */
-    public function getNom()
+    public function setEmail($email)
     {
-        return $this->nom;
+        $this->email = $email;
     }
 
-    /**
-     * Set prenom
-     *
-     * @param string $prenom
-     *
-     * @return user
-     */
-    public function setPrenom($prenom)
+    public function getUsername()
     {
-        $this->prenom = $prenom;
-
-        return $this;
+        return $this->username;
     }
 
-    /**
-     * Get prenom
-     *
-     * @return string
-     */
-    public function getPrenom()
+    public function setUsername($username)
     {
-        return $this->prenom;
+        $this->username = $username;
     }
 
-    /**
-     * Set type
-     *
-     * @param string $type
-     *
-     * @return user
-     */
-    public function setType($type)
+    public function getName()
     {
-        $this->type = $type;
-
-        return $this;
+        return $this->name;
     }
 
-    /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getType()
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+     public function getType()
     {
         return $this->type;
     }
 
-    /**
-     * Set numero
-     *
-     * @param string $numero
-     *
-     * @return user
-     */
-    public function setNumero($numero)
+    public function setType($type)
     {
-        $this->numero = $numero;
-
-        return $this;
+        $this->type = $type;
     }
 
-    /**
-     * Get numero
-     *
-     * @return string
-     */
-    public function getNumero()
+    public function getPlainPassword()
     {
-        return $this->numero;
+        return $this->plainPassword;
     }
 
-    /**
-     * Set adresse
-     *
-     * @param string $adresse
-     *
-     * @return user
-     */
-    public function setAdresse($adresse)
+    public function setPlainPassword($password)
     {
-        $this->adresse = $adresse;
-
-        return $this;
+        $this->plainPassword = $plainPassword;
+        // forces the object to look "dirty" to Doctrine. Avoids
+        // Doctrine *not* saving this entity, if only plainPassword changes
+        $this->password = null;
     }
 
-    /**
-     * Get adresse
-     *
-     * @return string
-     */
-    public function getAdresse()
+    public function getPassword()
     {
-        return $this->adresse;
+        return $this->password;
     }
 
-    /**
-     * Set login
-     *
-     * @param string $login
-     *
-     * @return user
-     */
-    public function setLogin($login)
+    public function setPassword($password)
     {
-        $this->login = $login;
-
-        return $this;
+        $this->password = $password;
     }
 
-    /**
-     * Get login
-     *
-     * @return string
-     */
-    public function getLogin()
+    public function getRoles()
     {
-        return $this->login;
+        return $this->roles;
     }
 
-    /**
-     * Set mdp
-     *
-     * @param string $mdp
-     *
-     * @return user
-     */
-    public function setMdp($mdp)
-    {
-        $this->mdp = $mdp;
-
-        return $this;
-    }
-
-    /**
-     * Get mdp
-     *
-     * @return string
-     */
-    public function getMdp()
-    {
-        return $this->mdp;
-    }
-
-    /**
-     * Set avatar
-     *
-     * @param string $avatar
-     *
-     * @return user
-     */
     public function setAvatar($avatar)
     {
         $this->avatar = $avatar;
@@ -278,6 +180,64 @@ class user
     public function getAvatar()
     {
         return $this->avatar;
+    }
+
+     public function getAdress()
+    {
+        return $this->adress;
+    }
+
+    public function setAdress($adress)
+    {
+        $this->adress = $adress;
+    }
+
+
+    public function getTel()
+    {
+        return $this->tel;
+    }
+
+    public function setTel($tel)
+    {
+        $this->tel = $tel;
+    }
+
+
+    public function getSalt()
+    {
+        // The bcrypt and argon2i algorithms don't require a separate salt.
+        // You *may* need a real salt if you choose a different encoder.
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+        $this->plainPassword = null;
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ]);
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 }
 

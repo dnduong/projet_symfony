@@ -2,12 +2,12 @@
 # https://symfony.com/doc/current/security.html
 security:
     encoders:
-        AppBundle\Entity\user: bcrypt
+        AppBundle\Entity\User:
+            algorithm: bcrypt   
     providers:
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
-        in_memory:
-            memory: ~
-
+        our_users:
+            entity: { class: AppBundle\Entity\user, property: username }
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
@@ -16,17 +16,13 @@ security:
 
         main:
             anonymous: ~
-            # activate different ways to authenticate
-
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
-            logout:
-                path: /logout
-                target: /
+            provider: our_users
+            form_login:
+                login_path: login
+                check_path: login
             guard:
                 authenticators:
-                    - form_authenticator
+                    - app.security.login_form_authenticator
+            logout:
+                path: /logout
 
