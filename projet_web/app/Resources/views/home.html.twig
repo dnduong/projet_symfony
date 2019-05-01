@@ -5,12 +5,14 @@
     <p>C'est la page Home</p>
 	<ul>
 			<li> <a href="{{ path('inscription') }}">Sign Up</a> </li><br>
-			{% if is_granted('ROLE_USER') %}
+			{% if app.user %}
                     <li><a href="{{ path('security_logout') }}">Logout</a></li>
-                {% else %}
+            {% else %}
                     <li><a href="{{ path('security_login') }}">Login</a></li>
-                {% endif %}
+            {% endif %}
             <li> <a href="{{ path('profil') }}">Profil</a> </li>
+            <li> <a href="{{ path('take_date') }}">Prendre un RDV</a> </li>
+            <li> <a href="{{ path('make_date') }}">Ajouter un RDV</a> </li>
     </ul>
      
 {% endblock %}

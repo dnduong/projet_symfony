@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block title%}Prendre un RDV{% endblock %}
+{% block body %}
+    <h1>Prise de rendez-vous</h1>
+    <a href="{{ path('homepage') }}">Home</a><br>
+    {% for rdv in trdv %}
+        <a href="{{ path('take_one_date', {'url': rdv.url}) }}">Rendez-vous proposé par {{rdv.proposant}} le {{ rdv.date | date('Y-m-d H:i:s') }}</a><br> 
+	{% endfor %}
+{% endblock %}
