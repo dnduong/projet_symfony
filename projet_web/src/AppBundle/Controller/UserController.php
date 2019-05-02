@@ -11,7 +11,7 @@ class UserController extends Controller
     /**
      * @Route("/profil", name="profil")
      */
-    public function indexAction(Request $request)
+    public function profileAction(Request $request)
     {
         return $this->render('profil.html.twig');
     }

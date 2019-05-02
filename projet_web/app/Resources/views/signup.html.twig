@@ -2,9 +2,6 @@
 {% block title%}Sign up{% endblock %}
 {% block body %}
     <h1>Inscription</h1>
-	<ul>
-    <li> <a href="{{ path('homepage') }}">Home</a></li><br>
-    <li> <a href="{{ path('signup_user') }}">Utilisateur</a></li><br>
-	<li> <a href="{{ path('signup_resto') }}">Restaurant</a></li>
-	</ul>
+    <a href="{{ path('signup_user') }}">Utilisateur</a>
+    <a href="{{ path('signup_resto') }}">Restaurant</a>
 {% endblock %}

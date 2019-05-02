@@ -2,8 +2,6 @@
 {% block title%}Log in{% endblock %}
 {% block body %}
     <h1>Authentification</h1>
-    <a href="{{ path('homepage') }}">Home</a>
-    <a href="{{ path('inscription') }}">Sign up</a>
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}

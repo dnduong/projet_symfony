@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Firewall\ContextListener;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Form\LoginForm;
@@ -49,21 +48,7 @@ class MakeDateController extends Controller
 				return $this->render('noaccess.html.twig');
 			}
 		}else{
-			$authenticationUtils = $this->get('security.authentication_utils');
-	        // get the login error if there is one
-	        $error = $authenticationUtils->getLastAuthenticationError();
-	        // last username entered by the user
-	        $lastUsername = $authenticationUtils->getLastUsername();
-	        $form = $this->createForm(LoginForm::class, [
-	        	'_username'=>$lastUsername
-	        ]);
-	        return $this->render(
-	            'security/login.html.twig',
-	            array(
-	                'form' => $form->createView(),
-	                'error'         => $error,
-	            )
-	        );
+			return $this->redirectToRoute('login');
 	    }
 	}
 }
