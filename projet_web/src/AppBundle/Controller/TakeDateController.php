@@ -26,7 +26,8 @@ class TakeDateController extends Controller
 			if(isset($user)){
 				$rep = $this->getDoctrine()->getRepository('AppBundle:rdv');
 				$trdv = $rep->findByPrenant(NULL);
-				return $this->render('takedate.html.twig',array('trdv' => $trdv));
+				$rdvp = $rep->findByPrenant($usr->getUsername());
+				return $this->render('takedate.html.twig',array('trdv' => $trdv, 'rdvp'=>$rdvp));
 			}else{
 				return $this->render('noaccess.html.twig');
 			}
@@ -43,7 +44,7 @@ class TakeDateController extends Controller
        	 throw $this->createNotFoundException('No rdv found at url '.$url);
       	}
       	$form = $this->createFormBuilder()
-      		->add('Prendre',SubmitType::class)
+      		->add('Réserver',SubmitType::class)
       		->getForm();
       	$form->handleRequest($request);
       	if ($form->isSubmitted() && $form->isValid()) {

@@ -2,4 +2,19 @@
 {% block title%}Profil{% endblock %}
 {% block body %}
     <h1>Profil</h1>
+    <p>Avatar</p>
+    <img src="../uploads/img/{{user.avatar}}">
+    <p>Nom : {{user.name}} </p>
+    <p>Email : {{user.email}} </p>
+    {% if user.adress %}
+    	<p>Adresse : {{user.adress}}</p>
+    {% endif %}
+    <p>Telephone : {{user.tel}}</p>
+    {% if user.username == app.user.username %}
+    	<a href="{{ path('change_psw') }}">Changer le mot de passe</a><br>
+	    <a href="{{ path('change_avatar') }}">Changer l'avatar</a><br>
+	    <a href="{{ path('change_tel') }}">Changer le numéro de téléphone</a><br>
+    {% endif %}
+
+
 {% endblock %}

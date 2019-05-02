@@ -1,8 +1,12 @@
 {% extends 'base.html.twig' %}
-{% block title%}Prendre un RDV{% endblock %}
+{% block title%}Reservation{% endblock %}
 {% block body %}
-    <h1>Prise de rendez-vous</h1>
+    <h1>Réservation disponible</h1>
     {% for rdv in trdv %}
-        <a href="{{ path('take_one_date', {'url': rdv.url}) }}">Rendez-vous proposé par {{rdv.proposant}} le {{ rdv.date | date('Y-m-d H:i:s') }}</a><br> 
+        <a href="{{ path('take_one_date', {'url': rdv.url}) }}">Réservation disponible de {{rdv.proposant}} le {{ rdv.date | date('Y-m-d H:i:s') }}</a><br> 
+	{% endfor %}
+	<h1>Réservés</h1>
+	{% for rdv in trdv %}
+        <p>Vous avez réservé la place chez <a href="{{ path('profil', {'url' : rdv.proposant }) }}">{{rdv.proposant}}</a> le {{ rdv.date | date('Y-m-d H:i:s') }}</p> 
 	{% endfor %}
 {% endblock %}

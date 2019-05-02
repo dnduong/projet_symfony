@@ -12,16 +12,16 @@
             <nav class="navbar navbar-inverse">
                 <div class="container-fluid">
                     <ul class="nav navbar-nav">
-                        <li> <a href="{{ path('profil') }}">Accueil</a> </li>
+                        <li> <a href="{{ path('homepage') }}">Home</a> </li>
                         <li> <a href="{{ path('inscription') }}">Sign Up</a> </li>
                         {% if app.user %}
-                                <li><a href="{{ path('security_logout') }}">Logout</a></li>
+                            <li><a href="{{ path('security_logout') }}">Logout</a></li>
+                            <li> <a href="{{ path('profil', {'url' : app.user.username}) }}">Profil</a> </li>
                         {% else %}
-                                <li><a href="{{ path('security_login') }}">Login</a></li>
+                            <li><a href="{{ path('security_login') }}">Login</a></li>
                         {% endif %}
-                        <li> <a href="{{ path('profil') }}">Profil</a> </li>
-                        <li> <a href="{{ path('take_date') }}">Prendre un RDV</a> </li>
-                        <li> <a href="{{ path('make_date') }}">Ajouter un RDV</a> </li>
+                        <li> <a href="{{ path('take_date') }}">Réserver une place</a> </li>
+                        <li> <a href="{{ path('make_date') }}">Proposer une réservation</a> </li>
                         <li> <a href="{{ path('add_img') }}">Ajouter un image</a> </li>
                     </ul>
                 </div>

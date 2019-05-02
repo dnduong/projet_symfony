@@ -29,9 +29,9 @@ class AddImgController extends Controller
       $repository = $this->getDoctrine()->getRepository('AppBundle:user');
       $user = $repository->findOneBy(array('username' => $usr->getUsername(), 'type' => 'restaurant'));
       if(isset($user)){
-        $user = $usr->getUsername();
+        $usrname = $usr->getUsername();
         $img = new image();
-        $img->setOwner($user);
+        $img->setOwner($usrname);
         $form = $this->createFormBuilder($img) 
         ->add('image', FileType::class)  
         ->add('Ajouter', SubmitType::class)

@@ -39,7 +39,6 @@ class rdv
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
-     * @Assert\NotBlank
      */
     private $date;
 
