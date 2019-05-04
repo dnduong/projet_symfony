@@ -15,6 +15,13 @@
 	    <a href="{{ path('change_avatar') }}">Changer l'avatar</a><br>
 	    <a href="{{ path('change_tel') }}">Changer le numéro de téléphone</a><br>
     {% endif %}
+    <p>Images</p>
+    {% if user.type == 'restaurant' %}
+        {% for img in images %}
+            <img src="../uploads/img/{{img.image}}">
+        {% endfor %}
+    {% endif %}
+    
 
 
 {% endblock %}

@@ -6,7 +6,7 @@
         <a href="{{ path('take_one_date', {'url': rdv.url}) }}">Réservation disponible de {{rdv.proposant}} le {{ rdv.date | date('Y-m-d H:i:s') }}</a><br> 
 	{% endfor %}
 	<h1>Réservés</h1>
-	{% for rdv in trdv %}
-        <p>Vous avez réservé la place chez <a href="{{ path('profil', {'url' : rdv.proposant }) }}">{{rdv.proposant}}</a> le {{ rdv.date | date('Y-m-d H:i:s') }}</p> 
+	{% for rdv in rdvp %}
+        <p>Vous avez réservé la place chez <a href="{{ path('profil', {'url' : rdv.proposant }) }}">{{rdv.proposant}}</a> le {{ rdv.date | date('Y-m-d H:i:s') }} [<a href="{{ path('remove_one_date', {'url': rdv.url}) }}">Annuler</a>]</p> 
 	{% endfor %}
 {% endblock %}

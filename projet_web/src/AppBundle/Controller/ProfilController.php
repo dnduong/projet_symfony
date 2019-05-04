@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\user;
+use AppBundle\Entity\image;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,8 +32,10 @@ class ProfilController extends Controller
     	$usr= $this->getUser();
    		if(isset($usr)){
    			$repository = $this->getDoctrine()->getRepository('AppBundle:user');
-			$user = $repository->findOneByUsername($url);
-			return $this->render('profil.html.twig',array('user'=>$user));
+        $rep2 = $this->getDoctrine()->getRepository('AppBundle:image');
+		    $user = $repository->findOneByUsername($url);
+        $img = $rep2->findByOwner($url);
+			return $this->render('profil.html.twig',array('user'=>$user,'images'=>$img));
    		}else{
    			return $this->redirectToRoute('login');
    		}      

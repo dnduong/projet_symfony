@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block title%}Annulation{% endblock %}
+{% block body %}
+    <h1>Annulation</h1>
+    <p>Voulez-vous annuler cette place?</p>
+    {{ form_start(form) }}
+	{{ form_widget(form) }}
+	{{ form_end(form) }}
+{% endblock %}
