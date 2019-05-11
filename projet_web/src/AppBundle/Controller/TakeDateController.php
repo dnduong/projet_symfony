@@ -25,9 +25,8 @@ class TakeDateController extends Controller
 			$user = $repository->findOneBy(array('username' => $usr->getUsername(), 'type' => 'utilisateur'));
 			if(isset($user)){
 				$rep = $this->getDoctrine()->getRepository('AppBundle:rdv');
-				$trdv = $rep->findByPrenant(NULL);
 				$rdvp = $rep->findByPrenant($usr->getUsername());
-				return $this->render('takedate.html.twig',array('trdv' => $trdv, 'rdvp'=>$rdvp));
+				return $this->render('takedate.html.twig',array('rdvp'=>$rdvp));
 			}else{
 				return $this->render('noaccess.html.twig');
 			}
