@@ -6,11 +6,8 @@ use AppBundle\Entity\user;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Http\Firewall\ContextListener;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use AppBundle\Form\LoginForm;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 class RechercheController extends Controller
@@ -24,7 +21,28 @@ class RechercheController extends Controller
 			$repository = $this->getDoctrine()->getRepository('AppBundle:user');
 			$user = $repository->findOneBy(array('username' => $usr->getUsername(), 'type' => 'utilisateur'));
 			if(isset($user)){
-				return $this->render('recherche.html.twig');
+				$tuser = $repository->findByType('restaurant');
+				$form = $this->createFormBuilder() 
+		        ->add('Nom', TextType::class, array(
+    'required' => false))  
+		        ->add('Ville', TextType::class, array(
+    'required' => false))
+		        ->add('Recherche', SubmitType::class)
+		        ->getForm();
+		        $form->handleRequest($request);
+		        if ($form->isSubmitted() && $form->isValid()){
+					$data = $form->getData();
+					$name = $data['Nom'];
+					$adress = $data['Ville'];
+					if(isset($name) && isset($adress)){
+						$tuser = $repository->findOneBy(array('name' => $name, 'adress' => $adress));
+					}else if(isset($name)){
+						$tuser = $repository->findByName($name);
+					}else{
+						$tuser = $repository->findByAdress($adress);	
+					}
+				}
+				return $this->render('recherche.html.twig',array('tuser'=>$tuser,'form' => $form->createView()))	;
 			}else{
 				return $this->render('noaccess.html.twig');
 			}

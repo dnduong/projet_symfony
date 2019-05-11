@@ -2,4 +2,14 @@
 {% block title%}Recherche{% endblock %}
 {% block body %}
     <h1>Recherche</h1>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+    {% for user in tuser %}
+        <h2><a href="{{ path('profil', {'url' : user.name }) }}">{{user.username}}</a></h2>
+        <img src="../uploads/img/{{user.avatar}}">
+        <p>Addresse : {{user.adress}}</p>
+        <p>Téléphone : {{user.tel}}</p>
+    {% endfor %}
+   
 {% endblock %}

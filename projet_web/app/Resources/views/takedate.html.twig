@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block title%}Reservation{% endblock %}
 {% block body %}
-	<h1>Vous avez réservé les places </h1>
-	{% for rdv in rdvp %}
-        <p>Vous avez réservé la place chez <a href="{{ path('profil', {'url' : rdv.proposant }) }}">{{rdv.proposant}}</a> le {{ rdv.date | date('Y-m-d H:i:s') }} [<a href="{{ path('remove_one_date', {'url': rdv.url}) }}">Annuler</a>]</p> 
+	<h1>Réservations disponibles</h1>
+	{% for rdv in trdv %}
+		{% if rdv.prenant == NULL %}
+			<p>Réserver la place chez {{rdv.proposant}} le {{ rdv.date | date('Y-m-d H:i:s') }} [<a href="{{ path('take_one_date', {'url': rdv.url}) }}">Prendre</a>]</p> 
+    	{% endif %}
+       
 	{% endfor %}
 {% endblock %}

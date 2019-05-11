@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+{% block title%}Reservation{% endblock %}
+{% block body %}
+	<h1>Vous avez réservé les places </h1>
+	{% for rdv in trdv %}
+		<p>Vous avez la place chez {{rdv.proposant}} le {{ rdv.date | date('Y-m-d H:i:s') }} [<a href="{{ path('remove_one_date', {'url': rdv.url}) }}">Annuler</a>]</p> 
+	{% endfor %}
+{% endblock %}
