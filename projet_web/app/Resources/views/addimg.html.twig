@@ -3,9 +3,11 @@
 {% block body %}
     <h1>Ajout d'images</h1>
 	<style type="text/css">
-	 img{ width:200px; }
+	 .im.img{ width:200px; }
 	</style>
+	<div class="im">
     {{ form_start(form) }}
 	{{ form_widget(form) }}
 	{{ form_end(form) }}
+	</div>
 {% endblock %}
