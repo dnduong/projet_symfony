@@ -1,7 +1,53 @@
 {% extends 'base.html.twig' %}
 {% block title%}Sign up{% endblock %}
 {% block body %}
-    <h1>Inscription</h1>
+
+<style type="text/css">
+        h1{
+			color: #560cdc;
+			font-size: 600%;
+		}
+		.a{
+			font-size: 300%;
+		}
+		.mm {
+		  font-weight: 900;
+		  font-size: 3.5em;
+}
+
+.mm .letter {
+  display: inline-block;
+  line-height: 1em;
+}
+
+.mm .text-wrapper {
+  position: relative;
+  display: inline-block;
+  padding-top: 0.1em;
+  padding-right: 0.05em;
+  padding-bottom: 0.15em;
+}
+
+.mm .line {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background-color: #fff;
+  transform-origin: 0 0;
+}
+
+.mm .line1 { top: 0; }
+.mm .line2 { bottom: 0; }
+		</style>
+    <h1 class="mm">
+  <span class="text-wrapper">
+    <span class="line line1"></span>
+    <span class="letters">Inscription</span>
+    <span class="line line2"></span>
+  </span>
+</h1>
     {{ form_start(form) }}
 	{{ form_widget(form) }}
 	{{ form_end(form) }}
