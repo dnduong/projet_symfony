@@ -90,6 +90,14 @@ anime.timeline({loop: true})
             margin: auto;
             text-align: center;
         }
+        #profil{
+            float:left;
+            width:30%;
+        }
+        #change{
+            float:left;
+            width:70%;
+        }
 		</style>
 		
         <div class="container">
@@ -101,7 +109,6 @@ anime.timeline({loop: true})
                         {% if app.user %}
                             <li><a href="{{ path('security_logout') }}">Logout</a></li>
                             <li> <a href="{{ path('profil', {'url' : app.user.username}) }}">Profil</a> </li>
-                            <li> <a href="{{ path('my_date') }}">Votre réservation</a> </li>
                             <li> <a href="{{ path('recherche')}}">Recherche</a> </li>
                             <li> <a href="{{ path('make_date') }}">Proposer une réservation</a> </li>
                             <li> <a href="{{ path('add_img') }}">Ajouter un image</a> </li>

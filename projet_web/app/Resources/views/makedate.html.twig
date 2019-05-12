@@ -9,9 +9,9 @@
 	<ul>
 	{% for rdv in trdv %}
 		{% if rdv.prenant %}
-            <li>Réservation proposée par {{rdv.proposant}} le {{ rdv.date | date('Y-m-d H:i:s') }} pris par  <a href="{{ path('profil', {'url' : rdv.prenant }) }}">{{rdv.prenant}}</a></li>  
+            <li>Réservation proposée par {{rdv.proposant}} le {{ rdv.date | date('Y-m-d H:i:s') }} pris par  [<a href="{{ path('profil', {'url' : rdv.prenant }) }}">{{rdv.prenant}}</a>]</li>  
         {% else %}
-            <li>Réservation proposée par {{rdv.proposant}} le {{ rdv.date | date('Y-m-d H:i:s') }} pas encore pris</li>  
+            <li>Réservation proposée par {{rdv.proposant}} le {{ rdv.date | date('Y-m-d H:i:s') }} [LIBRE]</li>  
         {% endif %}
 	{% endfor %}
 	</ul>

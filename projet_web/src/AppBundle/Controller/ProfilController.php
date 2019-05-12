@@ -32,8 +32,8 @@ class ProfilController extends Controller
     	$usr= $this->getUser();
    		if(isset($usr)){
    			$repository = $this->getDoctrine()->getRepository('AppBundle:user');
+        $user = $repository->findOneByUsername($url);
         $rep2 = $this->getDoctrine()->getRepository('AppBundle:image');
-		    $user = $repository->findOneByUsername($url);
         $img = $rep2->findByOwner($url);
 			return $this->render('profil.html.twig',array('user'=>$user,'images'=>$img));
    		}else{
@@ -69,7 +69,9 @@ class ProfilController extends Controller
 	            $em = $this->getDoctrine()->getManager();
 	            $em->persist($user);
 	            $em->flush();
-	           	return $this->render('profil.html.twig',array('user'=>$user));
+              $rep2 = $this->getDoctrine()->getRepository('AppBundle:image');
+              $img = $rep2->findByOwner($usr->getUsername());
+	           	return $this->render('profil.html.twig',array('user'=>$user,'images'=>$img));
         	}
 			return $this->render('change.html.twig',array('form'=>$form->createView()));
    		}else{
@@ -100,7 +102,9 @@ class ProfilController extends Controller
 	            $em = $this->getDoctrine()->getManager();
 	            $em->persist($user);
 	            $em->flush();
-	           	return $this->render('profil.html.twig',array('user'=>$user));
+	           	$rep2 = $this->getDoctrine()->getRepository('AppBundle:image');
+              $img = $rep2->findByOwner($usr->getUsername());
+              return $this->render('profil.html.twig',array('user'=>$user,'images'=>$img));
         	}
 			return $this->render('change.html.twig',array('form'=>$form->createView()));
    		}else{
@@ -126,7 +130,9 @@ class ProfilController extends Controller
 	            $em = $this->getDoctrine()->getManager();
 	            $em->persist($user);
 	            $em->flush();
-	           	return $this->render('profil.html.twig',array('user'=>$user));
+	           	$rep2 = $this->getDoctrine()->getRepository('AppBundle:image');
+              $img = $rep2->findByOwner($usr->getUsername());
+              return $this->render('profil.html.twig',array('user'=>$user,'images'=>$img));
         	}
 			return $this->render('change.html.twig',array('form'=>$form->createView()));
    		}else{

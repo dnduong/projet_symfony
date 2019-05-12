@@ -10,7 +10,7 @@
     {% for user in tuser %}
         <div class ="imge">
             <h2><a href="{{ path('profil', {'url' : user.name }) }}">{{user.username}}</a></h2>
-            <img src="../uploads/img/{{user.avatar}}">
+            <img src="../uploads/img/{{user.avatar}}"height="200" width="auto">
             <p>Addresse : {{user.adress}}</p>
             <p>Téléphone : {{user.tel}}</p>
         </div>

@@ -1,29 +1,42 @@
 {% extends 'base.html.twig' %}
 {% block title%}Profil{% endblock %}
 {% block body %}
-    <h1>Profil</h1>
+    <h1 align='30%'>Profil</h1>
+    <div id="profil">
+    <h2>Information</h2>
     {% if (user.username != app.user.username and user.type == 'restaurant')%}
-        <a href='{{ path('take_date', {'url' : user.username }) }}'>Réserver une place</a>
-    {% endif %}
-    <p>Avatar</p>
-    <img src="../uploads/img/{{user.avatar}}">
+    <a href='{{ path('take_date', {'url' : user.username }) }}'><h2>Réserver une place</h2></a>
+    {% endif %}   
+    <img src="../uploads/img/{{user.avatar}}"height="200" width="auto">
     <p>Nom : {{user.name}} </p>
     <p>Email : {{user.email}} </p>
     {% if user.adress %}
     	<p>Addresse : {{user.adress}}</p>
     {% endif %}
     <p>Téléphone : {{user.tel}}</p>
+    {% if (user.username == app.user.username and user.type == 'restaurant')%}
+    <a href="{{ path('change_psw') }}">Changer le mot de passe</a><br>
+    <a href="{{ path('change_avatar') }}">Changer l'avatar</a><br>
+    <a href="{{ path('change_tel') }}">Changer le numéro de téléphone</a><br>
+    {% endif %}
+    </div>
+    <div id="change">
     {% if user.username == app.user.username %}
-    	<a href="{{ path('change_psw') }}">Changer le mot de passe</a><br>
-	    <a href="{{ path('change_avatar') }}">Changer l'avatar</a><br>
-	    <a href="{{ path('change_tel') }}">Changer le numéro de téléphone</a><br>
+        {% if (user.username == app.user.username and user.type == 'utilisateur')%}
+        <h2>Paramètres</h2>
+        <a href='{{ path('my_date') }}'>Vos réservations</a><br>
+        <a href="{{ path('change_psw') }}">Changer le mot de passe</a><br>
+        <a href="{{ path('change_avatar') }}">Changer l'avatar</a><br>
+        <a href="{{ path('change_tel') }}">Changer le numéro de téléphone</a><br>
+        {% endif %}
     {% endif %}
     {% if user.type == 'restaurant' %}
-        <p>Images</p>
+        <h3>Images</h3>
         {% for img in images %}
-            <img src="../uploads/img/{{img.image}}">
+            <img src="../uploads/img/{{img.image}}" height="200" width="auto">
         {% endfor %}
     {% endif %}
+    </div>
     
 
 
