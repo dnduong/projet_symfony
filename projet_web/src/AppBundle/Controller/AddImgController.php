@@ -59,5 +59,5 @@ class AddImgController extends Controller
     }else{
       return $this->redirectToRoute('login');
     }
-  }      
+  }
 }
