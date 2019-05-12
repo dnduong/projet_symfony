@@ -2,7 +2,7 @@
 {% block title%}Profil{% endblock %}
 {% block body %}
     <h1>Profil</h1>
-    {% if (user.username != app.user and user.type == 'restaurant') %}
+    {% if (user.username != app.user.username and user.type == 'restaurant')%}
         <a href='{{ path('take_date', {'url' : user.username }) }}'>Réserver une place</a>
     {% endif %}
     <p>Avatar</p>

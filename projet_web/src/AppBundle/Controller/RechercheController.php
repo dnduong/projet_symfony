@@ -35,7 +35,7 @@ class RechercheController extends Controller
 					$name = $data['Nom'];
 					$adress = $data['Ville'];
 					if(isset($name) && isset($adress)){
-						$tuser = $repository->findOneBy(array('name' => $name, 'adress' => $adress));
+						$tuser = $repository->findBy(array('name' => $name, 'type' => 'restaurant'));
 					}else if(isset($name)){
 						$tuser = $repository->findByName($name);
 					}else{
