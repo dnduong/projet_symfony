@@ -43,8 +43,8 @@ class SignUpController extends Controller
       $user->setAdress(NULL);
     	$form = $this->createFormBuilder($user)
       ->add('email',EmailType::class)  
-    	->add('username',TextType::class)
-      ->add('name',TextType::class)
+    	->add('username',TextType::class,['label' => 'Login '])
+      ->add('name',TextType::class,['label' => 'Nom   '])
     	->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Mot de passe '],
@@ -85,8 +85,8 @@ class SignUpController extends Controller
     	$user->setType('restaurant');
     	$form = $this->createFormBuilder($user)
       ->add('email',EmailType::class)  
-      ->add('username',TextType::class)
-      ->add('name',TextType::class)
+      ->add('username',TextType::class,['label' => 'Login'])
+      ->add('name',TextType::class,['label' => 'Nom'])
       ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Mot de passe '],
