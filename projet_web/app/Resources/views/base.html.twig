@@ -5,7 +5,6 @@
 		<title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-		<link href='{{ asset("../web/home.css") }}' rel="stylesheet">
 		{% endblock %}
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -77,10 +76,20 @@ anime.timeline({loop: true})
 			color: #b98073;
 		}
 		body{
-			background-image:url("https://www.athenaspahotel.com/media/cache/jadro_resize/rc/Tv22O4rW1550816149/jadroRoot/medias/_a1a8429.jpg");
-			background-attachment:fixed;
 			color:blue;
 		}
+        .imge{
+            max-width:400px;
+            margin: auto;
+            text-align: center;
+            border-style: solid;
+            border-color: #b98073;
+        }
+        #search{
+            max-width:400px;
+            margin: auto;
+            text-align: center;
+        }
 		</style>
 		
         <div class="container">
