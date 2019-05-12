@@ -94,7 +94,7 @@ class SignUpController extends Controller
         ])
       ->add('avatar', FileType::class)
       ->add('tel',TelType::class) 
-      ->add('adress',TextType::class)   
+      ->add('adress',TextType::class,['label' => 'Ville'])   
       ->add('S\'inscrire', SubmitType::class)
       ->getForm();
         $form->handleRequest($request);

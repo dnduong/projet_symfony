@@ -16,17 +16,17 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class TakeDateController extends Controller
 {
 	 /**
-     * @Route("/tdate", name="take_date")
+     * @Route("/tdate/{url}", name="take_date")
      */
-	public function take_dateAction(Request $request){
+	public function take_dateAction($url, Request $request){
 		$usr= $this->getUser();
 		if(isset($usr)){
 			$repository = $this->getDoctrine()->getRepository('AppBundle:user');
 			$user = $repository->findOneBy(array('username' => $usr->getUsername(), 'type' => 'utilisateur'));
 			if(isset($user)){
 				$rep = $this->getDoctrine()->getRepository('AppBundle:rdv');
-				$rdvp = $rep->findByPrenant($usr->getUsername());
-				return $this->render('takedate.html.twig',array('rdvp'=>$rdvp));
+				$trdv = $rep->findByProposant($url);
+				return $this->render('takedate.html.twig',array('trdv'=>$trdv));
 			}else{
 				return $this->render('noaccess.html.twig');
 			}
@@ -35,7 +35,26 @@ class TakeDateController extends Controller
 	    }
 	}
 	/**
-     * @Route("/tdate/{url}", name="take_one_date")
+     * @Route("/mydate", name="my_date")
+     */
+	public function mydateAction(Request $request){
+		$usr= $this->getUser();
+		if(isset($usr)){
+			$repository = $this->getDoctrine()->getRepository('AppBundle:user');
+			$user = $repository->findOneBy(array('username' => $usr->getUsername(), 'type' => 'utilisateur'));
+			if(isset($user)){
+				$rep = $this->getDoctrine()->getRepository('AppBundle:rdv');
+				$trdv = $rep->findByPrenant($usr->getUsername());
+				return $this->render('mydate.html.twig',array('trdv'=>$trdv));
+			}else{
+				return $this->render('noaccess.html.twig');
+			}
+		}else{
+			return $this->redirectToRoute('login');
+	    }
+	}
+	/**
+     * @Route("/tadate/{url}", name="take_one_date")
      */
 	public function take_one_dateAction ($url, Request $request) {
 		$usr= $this->getUser();
@@ -53,9 +72,7 @@ class TakeDateController extends Controller
       		$em = $this->getDoctrine()->getManager();
 			$em->persist($rdv);
 			$em->flush();
-			$trdv = $rep->findByPrenant(NULL);
-			$rdvp = $rep->findByPrenant($usr->getUsername());
-			return $this->render('takedate.html.twig',array('trdv' => $trdv, 'rdvp'=>$rdvp));
+			return $this->redirectToRoute('my_date');
       	}
       	return $this->render('takeonedate.html.twig', array('form' => $form->createView()));
 	}
@@ -78,9 +95,7 @@ class TakeDateController extends Controller
       		$em = $this->getDoctrine()->getManager();
 			$em->persist($rdv);
 			$em->flush();
-			$trdv = $rep->findByPrenant(NULL);
-			$rdvp = $rep->findByPrenant($usr->getUsername());
-			return $this->render('takedate.html.twig',array('trdv' => $trdv, 'rdvp'=>$rdvp));
+			return $this->redirectToRoute('my_date');
       	}
       	return $this->render('removeonedate.html.twig', array('form' => $form->createView()));
 	}
