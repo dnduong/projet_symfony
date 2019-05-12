@@ -76,7 +76,8 @@ anime.timeline({loop: true})
 			color: #b98073;
 		}
 		body{
-			color:blue;
+			color:blue;	
+			background-image:url(https://media.istockphoto.com/vectors/fork-and-spoon-icon-vector-id857045200);
 		}
         .imge{
             max-width:400px;
@@ -111,7 +112,7 @@ anime.timeline({loop: true})
                             <li> <a href="{{ path('profil', {'url' : app.user.username}) }}">Profil</a> </li>
                             <li> <a href="{{ path('recherche')}}">Recherche</a> </li>
                             <li> <a href="{{ path('make_date') }}">Proposer une réservation</a> </li>
-                            <li> <a href="{{ path('add_img') }}">Ajouter un image</a> </li>
+                            <li> <a href="{{ path('add_img') }}">Ajouter une image</a> </li>
                         {% else %}
                             <li><a href="{{ path('security_login') }}">Login</a></li>
                         {% endif %}

@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block title%}Profil{% endblock %}
 {% block body %}
-    <h1 align='30%'>Profil</h1>
+    <h1 align='40%'>Profil</h1>
     <div id="profil">
-    <h2>Information</h2>
+    <h2>Informations</h2>
     {% if (user.username != app.user.username and user.type == 'restaurant')%}
     <a href='{{ path('take_date', {'url' : user.username }) }}'><h2>Réserver une place</h2></a>
     {% endif %}   
@@ -37,7 +37,10 @@
         {% endfor %}
     {% endif %}
     </div>
-    
+    <style>
+		div{ padding-left:200px; }
+		h1{ padding-left:200px; }
+	</style>
 
 
 {% endblock %}
